@@ -20,7 +20,7 @@
 
 # About the project / Documentation
 
-A smart contract applicatoin for storing a password. Users should be able to store a password and then retrieve it later. Others should not be able to access the password. 
+A smart contract applicatoin for storing a password. Users should be able to store a password and then retrieve it later. Others should not be able to access the password.
 
 # Stats
 
@@ -55,11 +55,11 @@ forge test
 
 ## Commit Hash
 
-7d55682ddc4301a7b13ae9413095feffd9924566
+226e6a4a53fc5021695b67c16de5501eccc94436
 
 ## Repo URL
 
-https://github.com/Cyfrin/3-passwordstore-audit
+<https://github.com/Cyfrin/3-passwordstore-audit>
 
 ## In scope vs out of scope contracts
 
@@ -71,7 +71,7 @@ https://github.com/Cyfrin/3-passwordstore-audit
 ## Compatibilities
 
 - Solc Version: 0.8.18
-- Chain(s) to deploy contract to: 
+- Chain(s) to deploy contract to:
   - ETH
 - Tokens: None
   
