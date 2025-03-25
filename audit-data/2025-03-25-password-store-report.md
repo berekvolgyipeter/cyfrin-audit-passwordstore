@@ -1,3 +1,112 @@
+---
+title: Protocol Audit Report
+author: Peter Berekvolgyi
+date: March 25, 2025
+header-includes:
+  - \usepackage{titling}
+  - \usepackage{graphicx}
+---
+
+\begin{titlepage}
+    \centering
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{logo.pdf} 
+    \end{figure}
+    \vspace*{2cm}
+    {\Huge\bfseries Protocol Audit Report\par}
+    \vspace{1cm}
+    {\Large Version 1.0\par}
+    \vspace{2cm}
+    {\Large\itshape Peter Berekvolgyi\par}
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+\maketitle
+
+<!-- Your report starts here! -->
+
+# PasswordStore Audit Report
+
+Prepared by: [Peter Berekvolgyi](https://github.com/berekvolgyipeter)
+Lead Auditors: 
+- Peter Berekvolgyi
+
+# Table of Contents
+- [PasswordStore Audit Report](#passwordstore-audit-report)
+- [Table of Contents](#table-of-contents)
+- [Protocol Summary](#protocol-summary)
+- [Disclaimer](#disclaimer)
+- [Risk Classification](#risk-classification)
+- [Audit Details](#audit-details)
+  - [Scope](#scope)
+  - [Roles](#roles)
+- [Executive Summary](#executive-summary)
+  - [Issues found](#issues-found)
+- [Findings](#findings)
+  - [High](#high)
+    - [\[H-1\] Storing the password on-chain makes it visible to anyone and no longer private](#h-1-storing-the-password-on-chain-makes-it-visible-to-anyone-and-no-longer-private)
+    - [\[H-2\] `PasswordStore::setPassword` has no access controls, meaning a non-owner could change the password](#h-2-passwordstoresetpassword-has-no-access-controls-meaning-a-non-owner-could-change-the-password)
+  - [Informational](#informational)
+    - [\[I-1\] The `PasswordStore::getPassword` natspec indicates a parameter that doesn't exist, causing the natspec to be incorrect](#i-1-the-passwordstoregetpassword-natspec-indicates-a-parameter-that-doesnt-exist-causing-the-natspec-to-be-incorrect)
+
+# Protocol Summary
+
+PasswordStore is a protocol dedicated to storage and retrieval of a user's passwords. The protocol is designed to be used by a single user, and is not designed to be used by multiple users. Only the owner should be able to set and access this password.
+
+# Disclaimer
+
+Peter Berekvolgyi makes all effort to find as many vulnerabilities in the code in the given time period, but holds no responsibilities for the findings provided in this document. A security audit by the team is not an endorsement of the underlying business or product. The audit was time-boxed and the review of the code was solely on the security aspects of the Solidity implementation of the contracts.
+
+# Risk Classification
+
+|            |        | Impact |        |     |
+| ---------- | ------ | ------ | ------ | --- |
+|            |        | High   | Medium | Low |
+|            | High   | H      | H/M    | M   |
+| Likelihood | Medium | H/M    | M      | M/L |
+|            | Low    | M      | M/L    | L   |
+
+We use the [CodeHawks](https://docs.codehawks.com/hawks-auditors/how-to-evaluate-a-finding-severity) severity matrix to determine severity. See the documentation for more details.
+
+# Audit Details
+
+**The findings described in this document correspond the following commit hash:**
+```
+7d55682ddc4301a7b13ae9413095feffd9924566
+```
+
+## Scope
+
+```
+src/
+--- PasswordStore.sol
+```
+
+## Roles
+
+- Owner: Is the only one who should be able to set and access the password.
+
+For this contract, only the owner should be able to interact with the contract.
+
+# Executive Summary
+
+## Issues found
+
+| Severity          | Number of issues found |
+| ----------------- | ---------------------- |
+| High              | 2                      |
+| Medium            | 0                      |
+| Low               | 0                      |
+| Info              | 1                      |
+| Gas Optimizations | 0                      |
+| Total             | 3                      |
+
+# Findings
+
+## High
+
 ### [H-1] Storing the password on-chain makes it visible to anyone and no longer private
 
 **Description**
@@ -118,6 +227,8 @@ if(msg.sender != s_owner){
     revert PasswordStore__NotOwner();
 }
 ```
+
+## Informational
 
 ### [I-1] The `PasswordStore::getPassword` natspec indicates a parameter that doesn't exist, causing the natspec to be incorrect
 
